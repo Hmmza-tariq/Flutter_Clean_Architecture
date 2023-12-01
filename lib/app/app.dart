@@ -1,4 +1,4 @@
-import 'package:clean_arch/presentation/theme_manager.dart';
+import 'package:clean_arch/presentation/resources/theme_manager.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable

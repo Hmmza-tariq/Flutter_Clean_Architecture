@@ -1,7 +1,7 @@
-import 'package:clean_arch/presentation/color_manager.dart';
-import 'package:clean_arch/presentation/font_manager.dart';
-import 'package:clean_arch/presentation/styles_manager.dart';
-import 'package:clean_arch/presentation/values_manager.dart';
+import 'package:clean_arch/presentation/resources/color_manager.dart';
+import 'package:clean_arch/presentation/resources/font_manager.dart';
+import 'package:clean_arch/presentation/resources/styles_manager.dart';
+import 'package:clean_arch/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 
 ThemeData getApplicationTheme() {
