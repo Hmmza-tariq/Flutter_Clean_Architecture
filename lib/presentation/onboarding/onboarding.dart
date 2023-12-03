@@ -4,6 +4,7 @@ import 'package:clean_arch/presentation/resources/strings_manager.dart';
 import 'package:clean_arch/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:svg_flutter/svg.dart';
 
 class OnBoardingView extends StatefulWidget {
   const OnBoardingView({super.key});
@@ -28,10 +29,12 @@ class _OnBoardingViewState extends State<OnBoardingView> {
       ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(
+      child: Scaffold(
         backgroundColor: ColorManager.white,
         appBar: AppBar(
-          elevation: AppSize.s1_5,
+          backgroundColor: ColorManager.white,
+          elevation: AppSize.s0,
           systemOverlayStyle: SystemUiOverlayStyle(
               statusBarColor: ColorManager.white,
               statusBarBrightness: Brightness.dark,
@@ -46,16 +49,111 @@ class _OnBoardingViewState extends State<OnBoardingView> {
               });
             },
             itemBuilder: (context, index) {
-              return null;
+              return OnBoardingPage(
+                sliderObject: _list[index],
+              );
+            }),
+        bottomSheet: Container(
+          color: ColorManager.white,
+          height: AppSize.s100,
+          child: Column(
+            children: [
+              Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        AppStrings.skip,
+                        textAlign: TextAlign.end,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(color: ColorManager.primary),
+                      ))),
+              _getBottomSheetWidget(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
-              // return _buildPageItem(_list[index]);
-            }));
+  Widget _getBottomSheetWidget() {
+    return Container(
+      color: ColorManager.primary,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(AppPadding.p14),
+            child: GestureDetector(
+              child: SizedBox(
+                height: AppSize.s20,
+                child: SvgPicture.asset(ImageAssets.leftArrowIc),
+              ),
+              onTap: () {
+                _pageController.animateToPage(_getPreviousIndex(),
+                    duration:
+                        const Duration(microseconds: DurationConstant.d300),
+                    curve: Curves.bounceInOut);
+              },
+            ),
+          ),
+          Row(children: [
+            for (int i = 0; i < _list.length; i++)
+              Padding(
+                padding: const EdgeInsets.all(AppPadding.p8),
+                child: _getProperCircle(i),
+              )
+          ]),
+          Padding(
+            padding: const EdgeInsets.all(AppPadding.p14),
+            child: GestureDetector(
+              child: SizedBox(
+                height: AppSize.s20,
+                child: SvgPicture.asset(ImageAssets.rightArrowIc),
+              ),
+              onTap: () {
+                _pageController.animateToPage(_getNextIndex(),
+                    duration:
+                        const Duration(microseconds: DurationConstant.d300),
+                    curve: Curves.bounceInOut);
+              },
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  int _getPreviousIndex() {
+    int previousIndex = _currentIndex--;
+    if (previousIndex == -1) {
+      _currentIndex = _list.length - 1;
+    }
+    return _currentIndex;
+  }
+
+  int _getNextIndex() {
+    int nextIndex = _currentIndex++;
+    if (nextIndex >= _list.length) {
+      _currentIndex = 0;
+    }
+    return _currentIndex;
+  }
+
+  Widget _getProperCircle(int index) {
+    if (index == _currentIndex) {
+      return SvgPicture.asset(ImageAssets.hollowCircleIc);
+    } else {
+      return SvgPicture.asset(ImageAssets.solidCircleIc);
+    }
   }
 }
 
-class onBoardingPage extends StatelessWidget {
+class OnBoardingPage extends StatelessWidget {
   final SliderObject _sliderObject;
-  const onBoardingPage({Key? key, required SliderObject sliderObject})
+  const OnBoardingPage({Key? key, required SliderObject sliderObject})
       : _sliderObject = sliderObject,
         super(key: key);
 
@@ -77,7 +175,8 @@ class onBoardingPage extends StatelessWidget {
       ),
       const SizedBox(
         height: AppSize.s60,
-      )
+      ),
+      SvgPicture.asset(_sliderObject.image),
     ]);
   }
 }
