@@ -81,50 +81,46 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   Widget _getBottomSheetWidget() {
     return Container(
       color: ColorManager.primary,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p18),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p18),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+            onTap: () {
+              _pageController.animateToPage(_getPreviousIndex(),
+                  duration: const Duration(microseconds: DurationConstant.d300),
+                  curve: Curves.bounceInOut);
+            },
+            child: Padding(
               padding: const EdgeInsets.all(AppPadding.p18),
-              child: GestureDetector(
-                child: SizedBox(
-                  height: AppSize.s28,
-                  child: SvgPicture.asset(ImageAssets.leftArrowIc),
-                ),
-                onTap: () {
-                  _pageController.animateToPage(_getPreviousIndex(),
-                      duration:
-                          const Duration(microseconds: DurationConstant.d300),
-                      curve: Curves.bounceInOut);
-                },
+              child: SizedBox(
+                height: AppSize.s28,
+                child: SvgPicture.asset(ImageAssets.leftArrowIc),
               ),
             ),
-            Row(children: [
-              for (int i = 0; i < _list.length; i++)
-                Padding(
-                  padding: const EdgeInsets.all(AppPadding.p8),
-                  child: _getProperCircle(i),
-                )
-            ]),
-            Padding(
-              padding: const EdgeInsets.all(AppPadding.p14),
-              child: GestureDetector(
-                child: SizedBox(
-                  height: AppSize.s28,
-                  child: SvgPicture.asset(ImageAssets.rightArrowIc),
-                ),
-                onTap: () {
-                  _pageController.animateToPage(_getNextIndex(),
-                      duration:
-                          const Duration(microseconds: DurationConstant.d300),
-                      curve: Curves.bounceInOut);
-                },
+          ),
+          Row(children: [
+            for (int i = 0; i < _list.length; i++)
+              Padding(
+                padding: const EdgeInsets.all(AppPadding.p8),
+                child: _getProperCircle(i),
+              )
+          ]),
+          GestureDetector(
+            onTap: () {
+              _pageController.animateToPage(_getNextIndex(),
+                  duration: const Duration(microseconds: DurationConstant.d300),
+                  curve: Curves.bounceInOut);
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(AppPadding.p18),
+              child: SizedBox(
+                height: AppSize.s28,
+                child: SvgPicture.asset(ImageAssets.rightArrowIc),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
