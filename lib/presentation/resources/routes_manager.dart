@@ -3,6 +3,7 @@ import 'package:clean_arch/presentation/login/login.dart';
 import 'package:clean_arch/presentation/main/main_view.dart';
 import 'package:clean_arch/presentation/onboarding/onboarding.dart';
 import 'package:clean_arch/presentation/register/register.dart';
+import 'package:clean_arch/presentation/resources/strings_manager.dart';
 import 'package:clean_arch/presentation/splash/splash.dart';
 import 'package:clean_arch/presentation/store_details/store_details.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class RouteGenerator {
     return MaterialPageRoute(
       builder: (_) => const Scaffold(
         body: Center(
-          child: Text('No Route found'),
+          child: Text(AppStrings.noRouteFound),
         ),
       ),
     );
