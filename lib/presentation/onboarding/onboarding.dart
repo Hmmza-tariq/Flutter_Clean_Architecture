@@ -55,7 +55,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             }),
         bottomSheet: Container(
           color: ColorManager.white,
-          height: AppSize.s100,
+          height: AppSize.s120,
           child: Column(
             children: [
               Align(
@@ -81,47 +81,50 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   Widget _getBottomSheetWidget() {
     return Container(
       color: ColorManager.primary,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(AppPadding.p14),
-            child: GestureDetector(
-              child: SizedBox(
-                height: AppSize.s20,
-                child: SvgPicture.asset(ImageAssets.leftArrowIc),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p18),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(AppPadding.p18),
+              child: GestureDetector(
+                child: SizedBox(
+                  height: AppSize.s28,
+                  child: SvgPicture.asset(ImageAssets.leftArrowIc),
+                ),
+                onTap: () {
+                  _pageController.animateToPage(_getPreviousIndex(),
+                      duration:
+                          const Duration(microseconds: DurationConstant.d300),
+                      curve: Curves.bounceInOut);
+                },
               ),
-              onTap: () {
-                _pageController.animateToPage(_getPreviousIndex(),
-                    duration:
-                        const Duration(microseconds: DurationConstant.d300),
-                    curve: Curves.bounceInOut);
-              },
             ),
-          ),
-          Row(children: [
-            for (int i = 0; i < _list.length; i++)
-              Padding(
-                padding: const EdgeInsets.all(AppPadding.p8),
-                child: _getProperCircle(i),
-              )
-          ]),
-          Padding(
-            padding: const EdgeInsets.all(AppPadding.p14),
-            child: GestureDetector(
-              child: SizedBox(
-                height: AppSize.s20,
-                child: SvgPicture.asset(ImageAssets.rightArrowIc),
+            Row(children: [
+              for (int i = 0; i < _list.length; i++)
+                Padding(
+                  padding: const EdgeInsets.all(AppPadding.p8),
+                  child: _getProperCircle(i),
+                )
+            ]),
+            Padding(
+              padding: const EdgeInsets.all(AppPadding.p14),
+              child: GestureDetector(
+                child: SizedBox(
+                  height: AppSize.s28,
+                  child: SvgPicture.asset(ImageAssets.rightArrowIc),
+                ),
+                onTap: () {
+                  _pageController.animateToPage(_getNextIndex(),
+                      duration:
+                          const Duration(microseconds: DurationConstant.d300),
+                      curve: Curves.bounceInOut);
+                },
               ),
-              onTap: () {
-                _pageController.animateToPage(_getNextIndex(),
-                    duration:
-                        const Duration(microseconds: DurationConstant.d300),
-                    curve: Curves.bounceInOut);
-              },
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
